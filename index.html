@@ -39,6 +39,73 @@
     .rsvp-form textarea{min-height:90px;resize:vertical}
     .rsvp-form .btn{width:100%;margin-top:18px;text-align:center}
     .small-note{text-align:center;font-size:12px;color:#d8c49d;margin-top:12px}
+
+    .scroll-indicator{
+      position:absolute;
+      left:50%;
+      bottom:26px;
+      transform:translateX(-50%);
+      text-align:center;
+      color:var(--gold);
+      font-weight:600;
+      letter-spacing:1.6px;
+      opacity:0;
+      pointer-events:none;
+      animation:bounce 1.8s infinite;
+      transition:.8s ease;
+      z-index:5;
+      text-shadow:0 6px 18px rgba(0,0,0,.45);
+    }
+    body.opened .scroll-indicator{opacity:1}
+    .scroll-indicator .arrow{
+      display:block;
+      font-size:30px;
+      line-height:1;
+      margin-bottom:4px;
+    }
+    .scroll-indicator span{
+      font-size:11px;
+      text-transform:uppercase;
+    }
+    @keyframes bounce{
+      0%,20%,50%,80%,100%{transform:translateX(-50%) translateY(0)}
+      40%{transform:translateX(-50%) translateY(-10px)}
+      60%{transform:translateX(-50%) translateY(-5px)}
+    }
+    .floating-nav{
+      position:fixed;
+      right:14px;
+      bottom:18px;
+      z-index:40;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      opacity:0;
+      pointer-events:none;
+      transform:translateY(16px);
+      transition:.5s ease;
+    }
+    body.opened .floating-nav{
+      opacity:1;
+      pointer-events:auto;
+      transform:none;
+    }
+    .floating-nav a{
+      width:48px;
+      height:48px;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      background:rgba(7,21,47,.82);
+      border:1px solid rgba(216,182,106,.48);
+      color:var(--gold);
+      box-shadow:0 12px 28px rgba(0,0,0,.35);
+      backdrop-filter:blur(10px);
+      font-size:20px;
+    }
+
     footer{text-align:center;padding:28px;color:#d8c49d;font-size:12px}.fade{opacity:0;transform:translateY(35px);transition:.9s ease}.fade.show{opacity:1;transform:none}
     @media(max-width:520px){.big-names{font-size:34px}.title{font-size:25px}.countdown{grid-template-columns:repeat(2,1fr)}section{padding:50px 14px}.card{padding:30px 18px}}
   </style>
@@ -54,12 +121,23 @@
     </div>
   </div>
 
+
+  <nav class="floating-nav" aria-label="Quick navigation">
+    <a href="#lokasi" title="Lokasi">📍</a>
+    <a href="#rsvp" title="RSVP">📝</a>
+    <a href="#cover" title="Atas">↑</a>
+  </nav>
+
   <section id="cover"><div class="card fade">
     <div class="label">Majlis Perkahwinan</div>
     <div class="big-names">Juranti<br><span class="amp">&</span><br>Mohd Fizal</div>
     <div class="divider"></div>
     <p>Dengan penuh kesyukuran, kami menjemput Dato’, Datin, Tuan, Puan, Encik dan Cik ke majlis perkahwinan ini.</p>
     <div class="countdown"><div class="time"><b id="days">0</b><span>Hari</span></div><div class="time"><b id="hours">0</b><span>Jam</span></div><div class="time"><b id="minutes">0</b><span>Minit</span></div><div class="time"><b id="seconds">0</b><span>Saat</span></div></div>
+    <div class="scroll-indicator">
+      <span class="arrow">⌄</span>
+      <span>Scroll Down</span>
+    </div>
   </div></section>
 
   <section><div class="card fade">
@@ -79,7 +157,7 @@
     </div>
   </div></section>
 
-  <section><div class="card fade">
+  <section id="lokasi"><div class="card fade">
     <div class="label">Lokasi Majlis</div>
     <h2 class="title">Imbas / Tekan Peta Untuk Lokasi</h2>
     <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://maps.google.com/?q=5.537700,115.871254" alt="QR Lokasi">
@@ -87,7 +165,7 @@
     <iframe src="https://maps.google.com/maps?q=5.537700,115.871254&z=15&output=embed"></iframe>
   </div></section>
 
-  <section><div class="card fade">
+  <section id="rsvp"><div class="card fade">
     <div class="label">RSVP</div>
     <h2 class="title">Sahkan Kehadiran</h2>
     <p>Masukkan nama dan bilangan tetamu. Bila tekan hantar, WhatsApp akan terbuka dengan mesej siap ditulis.</p>
